@@ -1,82 +1,37 @@
-canvas = document.getElementById('myCanvas');
-    ctx = canvas.getContext("2d");
+menu_list_array = ["Veg Margherita Pizza",
+                    "Chicken Tandoori Pizza",
+                    "Veg Supreme Pizza",
+                    "Paneer Tikka Pizza",
+                    "Veg Extravaganza Pizza",
+                    "Deluxe Veggie Pizza"];
 
-    rover_width=100;
-    rover_height=90;
+function getmenu() {
+    var htmldata;
+    htmldata = "<ol>";
+    menu_list_array.sort();
+    for (var i = 0; i < menu_list_array.length; i++){
+        htmldata = htmldata + "<li>" + menu_list_array[i] + "</li>";}
 
-    background_image="mars.jpg";
-    rover_image="rover.png";
-    rover_x=10;
-    rover_y=10;
+htmldata = htmldata + "</ol>";
+document.getElementById("display_menu").innerHTML = htmldata;
+}
 
-    function add(){
-        background_imgTag=new Image();
-        background_imgTag.onload= uploadBackground;
-        background_imgTag.src=background_image;
+function add_item() {
+    var htmldata;
+    var item = document.getElementById("add_item").value;
+    menu_list_array.sort();
+    htmldata = "<section>"
+    for (var i = 0; i < menu_list_array.length; i++) {
+        htmldata = htmldata + "<div>"
+            + "<img src=\"images/pizzaImg.png\"/>"
+            + menu_list_array[i] + "</div>"
+    }
+    htmldata = htmldata + "</section>"
+    document.getElementById("display_addedmenu").innerHTML = htmldata;
+}
 
-        rover_imgTag=new Image();
-        rover_imgTag.onload= uploadrover;
-        rover_imgTag.src=rover_image;
-    }
-
-    function uploadBackground(){
-        ctx.drawImage(background_imgTag,0,0,canvas.width,canvas.height);
-    }
-    function uploadrover(){
-        ctx.drawImage(rover_imgTag,rover_x,rover_y,rover_width,rover_height);
-    }
-    window.addEventListener("keydown",my_keydown);
-
-    function my_keydown(e){
-        keyPressed=e.keyCode;
-        console.log(keyPressed)
-        if (keyPressed=='37'){
-        left();
-        console.log("left");
-        }
-        if (keyPressed=='38'){
-            up();
-            console.log("up");
-            }
-        if (keyPressed=='39'){
-            right();
-            console.log("right");
-            }
-        if (keyPressed=='40'){
-            down();
-            console.log("down");
-            }
-    }
-    function up(){
-        if(rover_y>=0){
-            rover_y=rover_y-10;
-            uploadBackground();
-            uploadrover();
-        }
-        
-    }
-    function down(){
-        if(rover_y<=(canvas.height-rover_height)){
-            rover_y=rover_y+10;
-            uploadBackground();
-            uploadrover();
-        }
-        
-    }
-    function left(){
-        if(rover_x>=0){
-            rover_x=rover_x-10;
-            uploadBackground();
-            uploadrover();
-        }
-        
-    }
-    function right(){
-        if(rover_x<=(canvas.width-rover_width)){
-            rover_x=rover_x+10;
-            uploadBackground();
-            uploadrover();
-        }
-        
-    }
-
+function add_top() {
+    var item = document.getElementById("add_item").value;
+    menu_list_array.push(item);
+    add_item();
+}
